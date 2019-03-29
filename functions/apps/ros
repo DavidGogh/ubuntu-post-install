@@ -44,7 +44,7 @@ esac
 
 echo "[Update & upgrade the package]"
 sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get upgrade -y
 
 echo "[Check the 14.04.2 TLS issue]"
 relesenum=`grep DISTRIB_DESCRIPTION /etc/*-release | awk -F 'Ubuntu ' '{print $2}' | awk -F ' LTS' '{print $1}'`
@@ -74,10 +74,10 @@ fi
 
 echo "[Update & upgrade the package]"
 sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get upgrade -y
 
 echo "[Installing ROS version: $name_ros_distro, config: $name_ros_config]"
-sudo apt-get install -y ros-$name_ros_distro-$name_ros_config ros-$name_ros_distro-rqt-*
+sudo apt-get install -y ros-$name_ros_distro-$name_ros_config ros-$name_ros_distro-rqt-* rosbash
 
 echo "[rosdep init and python-rosinstall]"
 sudo sh -c "rosdep init"

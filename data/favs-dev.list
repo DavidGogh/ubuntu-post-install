@@ -2,6 +2,7 @@ autotools-dev
 bzr
 git
 vim
+bash-completion
 cmake
 gtk-3-examples
 gtk-doc-tools
