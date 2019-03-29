@@ -1,6 +1,8 @@
 autotools-dev
 bzr
 git
+vim
+cmake
 gtk-3-examples
 gtk-doc-tools
 icontool
