@@ -46,7 +46,7 @@ function main {
 		'install_codecs'        'Install multimedia codecs' \
 		'install_fonts'         'Install additional fonts' \
 		'install_snap_apps'     'Install Snap applications' \
-		# 'install_flatpak_apps'  'Install Flatpak applications' \
+		'install_flatpak_apps'  'Install Flatpak applications' \
 		'install_thirdparty'    'Install third-party applications' \
 		'setup_dotfiles'        'Configure dotfiles' \
 		'system_configure'      'Configure system' \

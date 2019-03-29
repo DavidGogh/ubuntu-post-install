@@ -10,6 +10,8 @@ function import_apps_functions {
 	for FUNCTION in $(dirname "$0")/$DIR/*; do
 		if [[ -d $FUNCTION ]]; then
 			continue
+		elif [[ $FUNCTION == *sh ]]; then
+			continue
 		elif [[ -f $FUNCTION ]]; then
 			# source the function file
 			. $FUNCTION
@@ -36,7 +38,7 @@ function install_thirdparty {
 		# 'install_rvm'           'Ruby Version Manager (RVM)' \
 		# 'install_sublime_text'  'Sublime Text 3' \
                 'install_vscode'  'Visual Studio Code' \
-                'install_ROS'  'ROS' \
+                'install_ros'  'ROS' \
 		3>&1 1>&2 2>&3)
 
 	# check exit status
