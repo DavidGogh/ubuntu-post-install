@@ -28,15 +28,15 @@ function install_thirdparty {
 	THIRDPARTY=$(eval `resize` && whiptail \
 		--notags \
 		--title "Install $NAME" \
-		--menu "\nWhat ${NAME,,} would you like to install?" \
+		--checklist "\nWhat ${NAME,,} would you like to install?" \
 		--ok-button "Install" \
 		--cancel-button "Go Back" \
 		$LINES $COLUMNS $(( $LINES - 12 )) \
 		'install_chrome'        'Google Chrome' \
 		'install_dropbox'       'Dropbox' \
-		# 'install_oracle_java'   'Oracle Java' \
-		# 'install_rvm'           'Ruby Version Manager (RVM)' \
-		# 'install_sublime_text'  'Sublime Text 3' \
+		'install_oracle_java'   'Oracle Java' \
+		'install_rvm'           'Ruby Version Manager (RVM)' \
+		'install_sublime_text'  'Sublime Text 3' \
                 'install_vscode'  'Visual Studio Code' \
                 'install_ros'  'ROS' \
 		3>&1 1>&2 2>&3)

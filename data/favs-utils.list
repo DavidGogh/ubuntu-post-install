@@ -1,6 +1,6 @@
 ffmpeg
-flatpak
-gifsicle
+#flatpak
+#gifsicle
 inxi
 mediainfo
 network-manager-l2tp-gnome
