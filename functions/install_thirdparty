@@ -21,12 +21,13 @@ function import_apps_functions {
 
 # Install Third-Party Applications
 function install_thirdparty {
-    if [ ${1:-0} = 0 ]; then
-        continue
-    else
-        do_${FUNCNAME[0]}
-    fi
+	if  [$WITHOUT_GUI = 1 ]; then
+		continue
+	else
+		do_${FUNCNAME[0]}
+	fi
 }
+
 function do_install_thirdparty {
 	NAME="Third-Party Software"
 	echo_message title "Starting installation of ${NAME,,}..."

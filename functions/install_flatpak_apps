@@ -11,6 +11,14 @@ function install_flathub_app() {
 
 # Install Flatpak Applications
 function install_flatpak_apps {
+	if  [$WITHOUT_GUI = 1 ]; then
+		continue
+	else
+		do_${FUNCNAME[0]}
+	fi
+}
+
+function do_install_flatpak_apps {
 	# check if 'flatpak' is installed
 	check_package "flatpak" main
 	# install

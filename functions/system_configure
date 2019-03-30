@@ -55,6 +55,14 @@ function hide_snap_folder {
 
 # Configure System
 function system_configure {
+	if  [$WITHOUT_GUI = 1 ]; then
+		continue
+	else
+		do_${FUNCNAME[0]}
+	fi
+}
+
+function do_system_configure {
 	NAME="System Configuration"
 	echo_message title "Starting ${NAME,,}..."
 	# Draw window

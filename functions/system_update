@@ -85,6 +85,14 @@ function update_flatpak_apps {
 
 # Perform system updates
 function system_update {
+	if  [$WITHOUT_GUI = 1 ]; then
+		continue
+	else
+		do_${FUNCNAME[0]}
+	fi
+}
+
+function do_system_update {
 	# install
 	echo_message title "Starting system updates..."
 	# Draw window

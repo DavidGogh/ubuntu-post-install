@@ -27,6 +27,7 @@ clear
 
 # Title of script set
 TITLE="Ubuntu Post-Install Script"
+WITHOUT_GUI = 0
 
 # Main
 function main {
@@ -105,4 +106,5 @@ do
 	main
 done
 
+unset WITHOUT_GUI
 #END OF SCRIPT

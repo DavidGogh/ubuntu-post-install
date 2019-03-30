@@ -29,25 +29,28 @@ clear
 
 # Title of script set
 TITLE="Ubuntu Post-Install Script"
-
+WITHOUT_GUI = 1 # 1 without gui, 0 with gui
 # Main
 function main {
-    update_system 1
-    install_favs 1
-    install_favs_dev 1
-    install_gnome_apps 1 
-    install_gnome_extensions 1
-    gsettings_config 1
-    write_bash_aliases 1
-    write_profile 1
-    write_bashrc 1
-    write_editorconfig 1
+    update_system
+    install_from_list "preferred applications" "favs" 0
+	install_from_list "preferred development tools" "favs-dev" 0
+	install_from_list "preferred utilities" "favs-utils" 0
+    install_gnome_apps
+    install_shell_extensions
+    gsettings_config
+	disable_crash_dialogs
+    write_bash_aliases
+    write_profile
+    write_bashrc
+    write_editorconfig
     install_chrome
     install_vscode
     install_ros
-    purge_unused 1
-    remove_orphans 1
-    
+	clean_apt_cache
+	remove_orphans
+	remove_leftovers
+    purge_unused
 }
 
 # Import Functions
@@ -76,8 +79,8 @@ function quit {
 	if (whiptail --title "Quit" --yesno "Are you sure you want quit?" 8 56) then
 		echo_message welcome 'Thanks for using!'
 		exit 99
-	else
-		main
+	# else
+	# 	main
 	fi
 }
 
@@ -88,9 +91,8 @@ echo_message welcome "$TITLE"
 # Run system checks
 system_checks
 # main
-while :
-do
-	main
-done
+main
+
+unset WITHOUT_GUI
 
 #END OF SCRIPT

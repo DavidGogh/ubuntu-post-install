@@ -87,6 +87,14 @@ function write_editorconfig {
 
 # Install custom dotfiles
 function setup_dotfiles {
+	if  [$WITHOUT_GUI = 1 ]; then
+		continue
+	else
+		do_${FUNCNAME[0]}
+	fi
+}
+
+function do_setup_dotfiles {
 	NAME="System Configuration"
 	echo_message title "Starting ${NAME,,}..."
 	# Draw window

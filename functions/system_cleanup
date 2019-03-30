@@ -33,11 +33,11 @@ function purge_unused {
 		# Finished
 		echo_message success "Removal of ${NAME,,} complete."
 		whiptail --title "Finished" --msgbox "Unwanted ${NAME,,} have been removed." 8 56
-		system_cleanup ${$1:-0}
+		system_cleanup
 	else
 		# Cancelled
 		echo_message success "Removal of ${NAME,,} cancelled."
-		system_cleanup ${$1:-0}
+		system_cleanup
 	fi
 }
 # Remove pre-installed apps
@@ -70,11 +70,11 @@ function purge_snaps {
 		# Finished
 		echo_message success "Removal of ${NAME,,} complete."
 		whiptail --title "Finished" --msgbox "Unwanted ${NAME,,} have been removed." 8 56
-		system_cleanup ${$1:-0}
+		system_cleanup
 	else
 		# Cancelled
 		echo_message success "Removal of ${NAME,,} cancelled."
-		system_cleanup ${$1:-0}
+		system_cleanup
 	fi
 }
 
@@ -86,7 +86,7 @@ function remove_orphans {
 	# Done
 	echo_message success "Removal of orphaned packages complete."
 	whiptail --title "Finished" --msgbox "Orphaned packages have been successfully removed." 8 56
-	system_cleanup ${$1:-0}
+	system_cleanup
 }
 
 # Remove Leftover Config files
@@ -97,7 +97,7 @@ function remove_leftovers {
 	# Done
 	echo_message success "Removal of leftover configuration files complete."
 	whiptail --title "Finished" --msgbox "Leftover configuration files have been removed." 8 56
-	system_cleanup ${$1:-0}
+	system_cleanup
 }
 
 # Clean packages cache
@@ -108,18 +108,19 @@ function clean_apt_cache {
 	# Done
 	echo_message success "Package cache cleaned."
 	whiptail --title "Finished" --msgbox "Package cache has been cleaned." 8 56
-	system_cleanup ${$1:-0}
+	system_cleanup
 }
 
 
 # Cleanup System
 function system_cleanup {
-	if [${1:-0} = 1]; then
+	if  [$WITHOUT_GUI = 1 ]; then
 		continue
 	else
 		do_${FUNCNAME[0]}
 	fi
 }
+
 function do_system_cleanup {
 	NAME="System Cleanup"
 	echo_message title "Starting ${NAME,,}..."
