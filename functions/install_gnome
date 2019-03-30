@@ -3,18 +3,18 @@
 # Install GNOME Core Apps
 function install_gnome_apps {
 	# Update the list of packages in 'data/gnome-apps.list' to suit your preferences
-	install_from_list "preferred GNOME apps" "gnome-apps" install_gnome
+	install_from_list "preferred GNOME apps" "gnome-apps" "install_gnome $1"
 }
 
 # Install GNOME Shell Extensions
 function install_shell_extensions {
 	# Update the list of packages in 'data/gnome-shell-extensions.list' to suit your preferences
-	install_from_list "preferred GNOME Shell extensions" "gnome-shell-extensions" install_gnome
+	install_from_list "preferred GNOME Shell extensions" "gnome-shell-extensions" "install_gnome $1"
 }
 
 # Install Codecs
 function install_gnome {
-	if [ ${1:-0} = 1]; then
+	if [ ${1:-0} = 0]; then
 		continue
 	else
 		do_${FUNCNAME[0]}

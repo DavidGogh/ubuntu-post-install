@@ -21,6 +21,13 @@ function import_apps_functions {
 
 # Install Third-Party Applications
 function install_thirdparty {
+    if [ ${1:-0} = 0 ]; then
+        continue
+    else
+        do_${FUNCNAME[0]}
+    fi
+}
+function do_install_thirdparty {
 	NAME="Third-Party Software"
 	echo_message title "Starting installation of ${NAME,,}..."
 	import_apps_functions
@@ -44,7 +51,7 @@ function install_thirdparty {
 	# check exit status
 	if [ $? = 0 ]; then
 		echo_message header "Starting '$THIRDPARTY' function..."
-		$THIRDPARTY
+		$THIRDPARTY 1
 	else
 		# Cancelled
 		echo_message info "Installation of ${NAME,,} cancelled."

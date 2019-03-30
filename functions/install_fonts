@@ -3,21 +3,29 @@
 # Install preferred fonts
 function install_favs_fonts {
 	# Update the list of packages in 'data/favs-fonts.list' to suit your preferences
-	install_from_list "preferred fonts" "favs-fonts" install_fonts
+	install_from_list "preferred fonts" "favs-fonts" "install_fonts $1"
 }
 
 # Install Microsoft Core Fonts
 function install_mscorefonts {
-	install_package "Microsoft Core Fonts" "ttf-mscorefonts-installer" install_fonts
+	install_package "Microsoft Core Fonts" "ttf-mscorefonts-installer" "install_fonts $1"
 }
 
 # Install Emoji One
 function install_emojione {
-	install_package "Emoji One" "fonts-emojione" install_fonts
+	install_package "Emoji One" "fonts-emojione" "install_fonts $1"
 }
 
 # Install Fonts
 function install_fonts {
+    if [ ${1:-0} = 0 ]; then
+        continue
+    else
+        do_${FUNCNAME[0]}
+    fi
+}
+
+function do_install_fonts {
 	NAME="Fonts"
 	echo_message title "Starting ${NAME,,}..."
 	# Draw window
@@ -35,7 +43,7 @@ function install_fonts {
 	# check exit status
 	if [ $? = 0 ]; then
 		echo_message header "Starting '$FONTS' function"
-		$FONTS
+		$FONTS 1
 	else
 		# Cancelled
 		echo_message info "$NAME installation cancelled."
