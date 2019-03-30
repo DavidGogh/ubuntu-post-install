@@ -71,6 +71,22 @@ function import_functions {
 	done
 }
 
+# Automatically import apps functions
+function import_apps_functions {
+	DIR="functions/apps"
+	# iterate through the files in the 'functions/apps' folder
+	for FUNCTION in $(dirname "$0")/$DIR/*; do
+		if [[ -d $FUNCTION ]]; then
+			continue
+		elif [[ $FUNCTION == *sh ]]; then
+			continue
+		elif [[ -f $FUNCTION ]]; then
+			# source the function file
+			. $FUNCTION
+		fi
+	done
+}
+
 # Quit
 function quit {
 	echo_message header "Starting 'quit' function"
@@ -86,6 +102,7 @@ function quit {
 
 # Import main functions
 import_functions
+import_apps_functions
 # Welcome message
 echo_message welcome "$TITLE"
 # Run system checks
