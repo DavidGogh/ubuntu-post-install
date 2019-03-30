@@ -21,7 +21,7 @@ function import_apps_functions {
 
 # Install Third-Party Applications
 function install_thirdparty {
-	if  [$WITHOUT_GUI = 1 ]; then
+	if  [ $WITHOUT_GUI = 1 ]; then
 		continue
 	else
 		do_${FUNCNAME[0]}

@@ -114,7 +114,7 @@ function clean_apt_cache {
 
 # Cleanup System
 function system_cleanup {
-	if  [$WITHOUT_GUI = 1 ]; then
+	if  [ $WITHOUT_GUI = 1 ]; then
 		continue
 	else
 		do_${FUNCNAME[0]}

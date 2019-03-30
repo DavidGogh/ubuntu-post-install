@@ -14,7 +14,7 @@ function install_shell_extensions {
 
 # Install Codecs
 function install_gnome {
-	if  [$WITHOUT_GUI = 1 ]; then
+	if  [ $WITHOUT_GUI = 1 ]; then
 		continue
 	else
 		do_${FUNCNAME[0]}

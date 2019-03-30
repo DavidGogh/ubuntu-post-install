@@ -2,7 +2,7 @@
 
 # Perform system upgrade via apt
 function update_system {
-	echo_message title "Performing system update..."
+	echo_message title "Performing system update... $WITHOUT_GUI"
 	# Draw window
 	if (whiptail --title "System Update" --yesno "Check for system software updates?" 8 56) then
 		# Update repository information
@@ -85,7 +85,7 @@ function update_flatpak_apps {
 
 # Perform system updates
 function system_update {
-	if  [$WITHOUT_GUI = 1 ]; then
+	if  [ $WITHOUT_GUI = 1 ]; then
 		continue
 	else
 		do_${FUNCNAME[0]}
