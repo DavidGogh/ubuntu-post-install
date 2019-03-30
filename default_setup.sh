@@ -44,7 +44,7 @@ function main {
     write_profile
     write_bashrc
     write_editorconfig
-    install_chrome
+    download_chrome stable
     install_vscode
     install_ros
 	clean_apt_cache
@@ -78,7 +78,7 @@ function import_apps_functions {
 	for FUNCTION in $(dirname "$0")/$DIR/*; do
 		if [[ -d $FUNCTION ]]; then
 			continue
-		elif [[ $FUNCTION == *sh ]]; then
+		elif [[ $FUNCTION == *.sh ]]; then
 			continue
 		elif [[ -f $FUNCTION ]]; then
 			# source the function file
