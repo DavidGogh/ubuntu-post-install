@@ -13,3 +13,7 @@ nodejs
 npm
 optipng
 x11-apps
+apt-transport-https
+ca-certificates
+gnupg-agent
+software-properties-common

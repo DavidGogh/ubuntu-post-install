@@ -47,6 +47,7 @@ function main {
     download_chrome stable
     install_vscode
     install_ros
+    install_docker
 	clean_apt_cache
 	remove_orphans
 	remove_leftovers
