@@ -86,7 +86,7 @@ function update_flatpak_apps {
 # Perform system updates
 function system_update {
 	if  [ $WITHOUT_GUI = 1 ]; then
-		continue
+		return
 	else
 		do_${FUNCNAME[0]}
 	fi

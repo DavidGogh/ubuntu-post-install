@@ -19,7 +19,7 @@ function install_emojione {
 # Install Fonts
 function install_fonts {
 	if  [ $WITHOUT_GUI = 1 ]; then
-		continue
+		return
 	else
 		do_${FUNCNAME[0]}
 	fi

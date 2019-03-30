@@ -10,6 +10,31 @@ function purge_unused {
 	# Check list
 	LIST=$(dirname "$0")'/data/purge.list'
 	# Draw window
+	# Remove loop
+	for PACKAGE in $(cat $LIST); do
+		# If package is not installed
+		if [ $(check_package_installed $PACKAGE) != 0 ]; then
+			# Show already removed message
+			echo_message info "Package '$PACKAGE' already removed."
+		else
+			# Remove package
+			echo_message info "'$PACKAGE' is installed. Removing..."
+			# Admin privileges
+			superuser_do "apt remove -y $PACKAGE"
+			# Finished
+			echo_message success "'$PACKAGE' removal is complete."
+		fi
+	done
+	# Finished
+	echo_message success "Removal of ${NAME,,} complete."
+}
+
+function purge_unused_gui {
+	NAME="Unused Pre-installed Applications"
+	echo_message title "Removing ${NAME,,}..."
+	# Check list
+	LIST=$(dirname "$0")'/data/purge.list'
+	# Draw window
 	if (eval `resize` && whiptail \
 		--title "Remove $NAME" \
 		--yesno "Current list of ${NAME,,} to remove: \n\n$(cat $LIST) \n\nAre you sure you want proceed?" \
@@ -40,8 +65,33 @@ function purge_unused {
 		system_cleanup
 	fi
 }
+
 # Remove pre-installed apps
 function purge_snaps {
+	NAME="Unused Pre-installed Snaps"
+	echo_message title "Removing ${NAME,,}..."
+	# Check list
+	LIST=$(dirname "$0")'/data/purge-snaps.list'
+	# Remove loop
+	for PACKAGE in $(cat $LIST); do
+		# If package is not installed
+		if [[ $(snap list | grep $PACKAGE &> /dev/null; echo $?) != 0 ]]; then
+			# Show already removed message
+			echo_message info "snap '$PACKAGE' already removed."
+		else
+			# Remove package
+			echo_message info "snap '$PACKAGE' is installed. Removing..."
+			# Admin privileges
+			superuser_do "snap remove $PACKAGE"
+			# Finished
+			echo_message success "'$PACKAGE' removal is complete."
+		fi
+	done
+	# Finished
+	echo_message success "Removal of ${NAME,,} complete."
+}
+
+function purge_snaps_gui {
 	NAME="Unused Pre-installed Snaps"
 	echo_message title "Removing ${NAME,,}..."
 	# Check list
@@ -85,9 +135,10 @@ function remove_orphans {
 	superuser_do "apt autoremove -y $PACKAGE"
 	# Done
 	echo_message success "Removal of orphaned packages complete."
-	whiptail --title "Finished" --msgbox "Orphaned packages have been successfully removed." 8 56
+	no_gui "whiptail --title 'Finished' --msgbox 'Orphaned packages have been successfully removed.' 8 56"
 	system_cleanup
 }
+
 
 # Remove Leftover Config files
 function remove_leftovers {
@@ -96,7 +147,7 @@ function remove_leftovers {
 	superuser_do "dpkg --purge $(COLUMNS=200 dpkg -l | grep '^rc' | tr -s ' ' | cut -d ' ' -f 2)"
 	# Done
 	echo_message success "Removal of leftover configuration files complete."
-	whiptail --title "Finished" --msgbox "Leftover configuration files have been removed." 8 56
+	no_gui "whiptail --title 'Finished' --msgbox 'Leftover configuration files have been removed.' 8 56"
 	system_cleanup
 }
 
@@ -107,7 +158,7 @@ function clean_apt_cache {
 	superuser_do "apt clean"
 	# Done
 	echo_message success "Package cache cleaned."
-	whiptail --title "Finished" --msgbox "Package cache has been cleaned." 8 56
+	no_gui "whiptail --title 'Finished' --msgbox 'Package cache has been cleaned.' 8 56"
 	system_cleanup
 }
 
@@ -115,7 +166,7 @@ function clean_apt_cache {
 # Cleanup System
 function system_cleanup {
 	if  [ $WITHOUT_GUI = 1 ]; then
-		continue
+		return
 	else
 		do_${FUNCNAME[0]}
 	fi

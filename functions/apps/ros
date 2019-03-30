@@ -1,4 +1,5 @@
 #!/bin/bash
 function install_ros {
+    echo "-------------------------Installing ROS---------------------------------"
     . ./ros.sh catkin_ws kinetic desktop-full
 }

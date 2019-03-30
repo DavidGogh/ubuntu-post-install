@@ -4,16 +4,21 @@
 function write_bash_aliases {
 	# Check list
 	INPUT=$(dirname "$0")'/data/config/bash_aliases.in'
+	echo_message info "Setting bash aliases..."
+	# simply copy the list file to the aliases file
+	cp $INPUT ~/.bash_aliases
+	echo_message success "Bash aliases set successfully."
+}
+function write_bash_aliases_gui {
+	# Check list
+	INPUT=$(dirname "$0")'/data/config/bash_aliases.in'
 	# Draw window
 	if (eval `resize` && whiptail \
 		--title "Preferred Bash Aliases" \
 		--yesno "Current list of preferred bash aliases: \n\n$(while read LINE; do echo "  "$LINE; done < $INPUT) \n\nProceed?" \
 		$LINES $COLUMNS $(( $LINES - 12 )) \
 		--scrolltext) then
-		echo_message info "Setting bash aliases..."
-		# simply copy the list file to the aliases file
-		cp $INPUT ~/.bash_aliases
-		echo_message success "Bash aliases set successfully."
+		write_bash_aliases
 		whiptail --title "Finished" --msgbox "Bash aliases set successfully." 8 56
 		setup_dotfiles
 	else
@@ -25,16 +30,22 @@ function write_bash_aliases {
 function write_profile {
 	# Check list
 	INPUT=$(dirname "$0")'/data/config/profile.in'
+	echo_message info "Overwriting ~/.profile..."
+	# simply copy the list file to the aliases file
+	cp $INPUT ~/.profile
+	echo_message success "Environment variables successfully configured."
+}
+
+function write_profile_gui {
+	# Check list
+	INPUT=$(dirname "$0")'/data/config/profile.in'
 	# Draw window
 	if (eval `resize` && whiptail \
 		--title "Configure Environment Variables" \
 		--yesno "Custom config file contains the following: \n\n$(while read LINE; do echo "  "$LINE; done < $INPUT) \n\nOverwrite existing config?" \
 		$LINES $COLUMNS $(( $LINES - 12 )) \
 		--scrolltext) then
-		echo_message info "Overwriting ~/.profile..."
-		# simply copy the list file to the aliases file
-		cp $INPUT ~/.profile
-		echo_message success "Environment variables successfully configured."
+		write_profile
 		whiptail --title "Finished" --msgbox "Environment variables successfully configured." 8 56
 		setup_dotfiles
 	else
@@ -46,16 +57,21 @@ function write_profile {
 function write_bashrc {
 	# Check list
 	INPUT=$(dirname "$0")'/data/config/bashrc.in'
+	echo_message info "Overwriting ~/.bashrc..."
+	# simply copy the list file to the aliases file
+	cp $INPUT ~/.bashrc
+	echo_message success "Bash successfully configured."
+}
+function write_bashrc_gui {
+	# Check list
+	INPUT=$(dirname "$0")'/data/config/bashrc.in'
 	# Draw window
 	if (eval `resize` && whiptail \
 		--title "Configure Bash" \
 		--yesno "Custom config file contains the following: \n\n$(while read LINE; do echo "  "$LINE; done < $INPUT) \n\nOverwrite existing config?" \
 		$LINES $COLUMNS $(( $LINES - 12 )) \
 		--scrolltext) then
-		echo_message info "Overwriting ~/.bashrc..."
-		# simply copy the list file to the aliases file
-		cp $INPUT ~/.bashrc
-		echo_message success "Bash successfully configured."
+		write_bashrc
 		whiptail --title "Finished" --msgbox "Bash successfully configured." 8 56
 		setup_dotfiles
 	else
@@ -67,16 +83,22 @@ function write_bashrc {
 function write_editorconfig {
 	# Check list
 	INPUT=$(dirname "$0")'/data/config/editorconfig.in'
+	echo_message info "Overwriting ~/.editorconfig..."
+	# simply copy the list file to the aliases file
+	cp $INPUT ~/.editorconfig
+	echo_message success "Text editors successfully configured."
+}
+
+function write_editorconfig_gui {
+	# Check list
+	INPUT=$(dirname "$0")'/data/config/editorconfig.in'
 	# Draw window
 	if (eval `resize` && whiptail \
 		--title "Configure Text editors" \
 		--yesno "Custom config file contains the following: \n\n$(while read LINE; do echo "  "$LINE; done < $INPUT) \n\nOverwrite existing config?" \
 		$LINES $COLUMNS $(( $LINES - 12 )) \
 		--scrolltext) then
-		echo_message info "Overwriting ~/.editorconfig..."
-		# simply copy the list file to the aliases file
-		cp $INPUT ~/.editorconfig
-		echo_message success "Text editors successfully configured."
+		write_editorconfig
 		whiptail --title "Finished" --msgbox "Text editors successfully configured." 8 56
 		setup_dotfiles
 	else
@@ -87,7 +109,7 @@ function write_editorconfig {
 
 # Install custom dotfiles
 function setup_dotfiles {
-	if  [ $WITHOUT_GUI = 1 ]; then
+	if  [$WITHOUT_GUI = 1 ]; then
 		continue
 	else
 		do_${FUNCNAME[0]}
@@ -112,7 +134,7 @@ function do_setup_dotfiles {
 	# check exit status
 	if [ $? = 0 ]; then
 		echo_message header "Starting '$CONFIGURE' function"
-		$CONFIGURE
+		"${CONFIGURE}_gui"
 	else
 		# Cancelled
 		echo_message info "$NAME cancelled."
