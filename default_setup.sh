@@ -29,13 +29,13 @@ clear
 
 # Title of script set
 TITLE="Ubuntu Post-Install Script"
-WITHOUT_GUI = 1 # 1 without gui, 0 with gui
+WITHOUT_GUI=1 # 1 without gui, 0 with gui
 # Main
 function main {
     update_system
-    install_from_list "preferred applications" "favs" 0
-	install_from_list "preferred development tools" "favs-dev" 0
-	install_from_list "preferred utilities" "favs-utils" 0
+    install_from_list "preferred applications" "favs"
+    install_from_list "preferred development tools" "favs-dev"
+	install_from_list "preferred utilities" "favs-utils"
     install_gnome_apps
     install_shell_extensions
     gsettings_config

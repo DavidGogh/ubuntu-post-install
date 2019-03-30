@@ -2,6 +2,19 @@
 
 # Perform system upgrade via apt
 function update_system {
+    # Update repository information
+    echo_message info 'Refreshing repository information...'
+    # Admin privileges
+    superuser_do 'apt update -y -qq'
+    echo_message success 'Repository information updated.'
+    # Upgrade
+    echo_message info 'Upgrading packages...'
+    superuser_do "apt dist-upgrade -y"
+    # Finished
+    echo_message success "System update complete."
+}
+
+function update_system_gui {
 	echo_message title "Performing system update... $WITHOUT_GUI"
 	# Draw window
 	if (whiptail --title "System Update" --yesno "Check for system software updates?" 8 56) then
@@ -53,6 +66,25 @@ function update_snap_apps {
 	if [ $? = 0 ]; then
 		# Finished
 		echo_message success "All snaps up to date."
+		# no_gui "whiptail --title 'Finished' --msgbox 'All snaps up to date.' 8 56"
+		# system_update
+	else
+		# Finished
+		echo_message success "Snap package update complete."
+		# no_gui "whiptail --title 'Finished' --msgbox 'Snap package update complete.' 8 56"
+		# system_update
+	fi
+}
+
+function update_snap_apps_gui {
+	# check if flatpak is installed
+	check_package "snapd" system_update
+	# continue
+	echo_message info "Updating installed snap packages..."
+	superuser_do "snap refresh"
+	if [ $? = 0 ]; then
+		# Finished
+		echo_message success "All snaps up to date."
 		whiptail --title "Finished" --msgbox "All snaps up to date." 8 56
 		system_update
 	else
@@ -65,6 +97,25 @@ function update_snap_apps {
 
 # Check for flatpak updates
 function update_flatpak_apps {
+	# check if flatpak is installed
+	check_package "flatpak" system_update
+	# continue
+	echo_message info "Updating installed flatpak packages..."
+	flatpak update
+	if [ $? = 0 ]; then
+		# Finished
+		echo_message success "All flatpaks up to date."
+		# whiptail --title "Finished" --msgbox "All flatpaks up to date." 8 56
+		# system_update
+	else
+		# Finished
+		echo_message success "Flatpak package update complete."
+		# whiptail --title "Finished" --msgbox "Flatpak package update complete." 8 56
+		# system_update
+	fi
+}
+
+function update_flatpak_apps_gui {
 	# check if flatpak is installed
 	check_package "flatpak" system_update
 	# continue
@@ -111,7 +162,7 @@ function do_system_update {
 	# check exit status
 	if [ $? = 0 ]; then
 		echo_message header "Starting '$UPDATE' function..."
-		$UPDATE
+		"${UPDATE}_gui"
 	else
 		# Cancelled
 		echo_message info "System updates cancelled."
