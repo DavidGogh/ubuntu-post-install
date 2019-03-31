@@ -3,7 +3,7 @@ function install_docker {
     echo "-------------------------Installing ROS---------------------------------"
     superuser_do "apt-get update"
     
-    superuser_do "apt-get install \
+    superuser_do "apt-get install -y\
     apt-transport-https \
     ca-certificates \
     curl \
@@ -19,7 +19,7 @@ function install_docker {
    
    superuser_do "apt-get update"
    
-   superuser_do "apt-get install docker-ce docker-ce-cli containerd.io"
+   superuser_do "apt-get install -y docker-ce docker-ce-cli containerd.io"
    
    superuser_do "usermod -aG docker ${USER}"
    

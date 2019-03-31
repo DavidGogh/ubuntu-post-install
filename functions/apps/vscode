@@ -5,7 +5,7 @@ function install_vscode {
     superuser_do "rm microsoft.gpg"
     superuser_do 'sh -c "echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list"'
     
-    superuser_do "apt-get install apt-transport-https"
+    superuser_do "apt-get install -y apt-transport-https"
     superuser_do "apt-get update"
-    superuser_do "apt-get install code" # or code-insiders
+    superuser_do "apt-get install -y code" # or code-insiders
 }
