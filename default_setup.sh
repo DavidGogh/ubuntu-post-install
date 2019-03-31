@@ -35,11 +35,11 @@ function main {
     update_system
     install_from_list "preferred applications" "favs"
     install_from_list "preferred development tools" "favs-dev"
-	install_from_list "preferred utilities" "favs-utils"
+    install_from_list "preferred utilities" "favs-utils"
     install_gnome_apps
     install_shell_extensions
     gsettings_config
-	disable_crash_dialogs
+    disable_crash_dialogs
     write_bash_aliases
     write_profile
     write_bashrc
@@ -48,10 +48,11 @@ function main {
     install_vscode
     install_ros
     install_docker
-	clean_apt_cache
-	remove_orphans
-	remove_leftovers
+    clean_apt_cache
+    remove_orphans
+    remove_leftovers
     purge_unused
+    sudo reboot
 }
 
 # Import Functions
