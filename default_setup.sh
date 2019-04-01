@@ -44,6 +44,7 @@ function main {
     write_profile
     write_bashrc
     write_editorconfig
+    install_vimrc
     download_chrome stable
     install_vscode
     install_ros
