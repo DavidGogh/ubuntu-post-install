@@ -34,6 +34,7 @@ WITHOUT_GUI=1 # 1 without gui, 0 with gui
 function main {
     update_system
     install_from_list "preferred applications" "favs"
+	curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -  # nodejs
     install_from_list "preferred development tools" "favs-dev"
     install_from_list "preferred utilities" "favs-utils"
     install_gnome_apps
