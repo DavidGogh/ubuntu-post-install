@@ -10,9 +10,16 @@ function download_chrome {
 	install_remote_package "$NAME" $PACKAGE $REMOTE install_thirdparty
 	status=1
 }
-
-# Google Chrome
 function install_chrome {
+    if  [ $WITHOUT_GUI = 1 ]; then
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        superuser_do "gdebi google-chrome-stable_current_amd64.deb"
+    else
+        do_install_chrome
+    fi
+}
+# Google Chrome
+function do_install_chrome {
 	status="0"
 	NAME="Google Chrome"
 	while [ "$status" -eq 0 ]; do

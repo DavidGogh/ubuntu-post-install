@@ -6,6 +6,7 @@ git
 vim
 bash-completion
 cmake
+cmake-gui
 gtk-3-examples
 gtk-doc-tools
 icontool
