@@ -1,5 +1,7 @@
 #!/bin/bash
 function install_ros {
     echo "-------------------------Installing ROS---------------------------------"
-    . ros.sh catkin_ws kinetic desktop-full
+    curl https://gist.githubusercontent.com/DavidGogh/a9f0f650338ca2087168cdd602dda598/raw/a241767109c51e81f5d875aaf4932f071cb3b3d2/ros_install.sh > ./ros_install.sh
+    . ./ros_install.sh catkin_ws kinetic desktop-full
+    rm ./ros_install.sh
 }
