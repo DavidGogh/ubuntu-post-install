@@ -48,7 +48,7 @@ function main {
     install_vimrc
     download_chrome stable
     install_vscode
-    install_ros
+    # install_ros
     install_docker
     clean_apt_cache
     remove_orphans
