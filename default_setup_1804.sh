@@ -33,14 +33,18 @@ WITHOUT_GUI=1 # 1 without gui, 0 with gui
 # Main
 function main {
     update_system
-    superuser_do "snap install node --channel=10/stable --classic"
+    # superuser_do "snap install node --channel=10/stable --classic"
     superuser_do "snap install vscode --classic"
-    
+	curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+	superuser_do "apt remove nodejs npm"
+	superuser_do "apt install -y nodejs npm"
+
+
 	superuser_do "addgroup --system docker"
 	superuser_do "adduser $USER docker"
 	superuser_do "newgrp docker"
 	superuser_do "snap install docker"
-	
+
     superuser_do "snap install google-cloud-sdk --classic"
     superuser_do "snap install snap-store"
     superuser_do "snap install slack --classic"
