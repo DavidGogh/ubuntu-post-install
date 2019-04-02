@@ -6,6 +6,9 @@ gnome-software-plugin-flatpak
 gnome-software-plugin-snap
 gnome-sushi
 gnome-tweak-tool
+arc-theme
+numix-gtk-theme
+numix-icon-theme
 nautilus
 sparkleshare
 transmission

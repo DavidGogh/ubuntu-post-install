@@ -35,7 +35,12 @@ function main {
     update_system
     superuser_do "snap install node --channel=10/stable --classic"
     superuser_do "snap install vscode --classic"
-    superuser_do "snap install docker"
+    
+	superuser_do "addgroup --system docker"
+	superuser_do "adduser $USER docker"
+	superuser_do "newgrp docker"
+	superuser_do "snap install docker"
+	
     superuser_do "snap install google-cloud-sdk --classic"
     superuser_do "snap install snap-store"
     superuser_do "snap install slack --classic"
