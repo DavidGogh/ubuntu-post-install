@@ -20,6 +20,9 @@ alias df='df -h'
 # ignore common typos
 alias naon='nano'
 
+# docker
+alias manifest-tool="docker run --rm weshigbee/manifest-tool"
+
 # ROS related
 alias cm=$'eval \'cd "$ROS_WORKSPACE"; catkin_make\''
 alias cb=$'eval \'cd "$ROS_WORKSPACE"; catkin build --cmake-args -DPYTHON_VERSION=3.6\''
@@ -51,12 +54,12 @@ function clone {
         echo "Option 2: Provide the full URL";
         echo "$ clone https://github.com/smallrye/smallrye-rest-client.git";
         echo "This will do: git clone https://github.com/smallrye/smallrye-rest-client.git";
-    else    
+    else
         if [[ $1 == https://* ]] || [[ $1 == git://* ]] || [[ $1 == ssh://* ]] ; then
             URL=$1;
         else
             URL='https://github.com/DavidGogh/'$1'.git';
-        fi    
+        fi
 
         echo git clone "$URL";
         git clone "$URL";
@@ -93,7 +96,7 @@ function commit {
         echo "This will commit changes to a local git repo, eg:";
         echo "$ commit 'some changes made'";
         echo "This will do: git commit -s -m 'some changes made'";
-    else    
+    else
         echo git commit -s -a -m "$1"
         git commit -s -a -m "$1";
     fi
