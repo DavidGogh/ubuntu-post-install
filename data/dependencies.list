@@ -4,4 +4,5 @@ wget
 whiptail
 xterm
 gdebi-core
+fabric
 
