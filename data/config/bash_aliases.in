@@ -20,6 +20,9 @@ alias df='df -h'
 # ignore common typos
 alias naon='nano'
 
+# docker
+alias manifest-tool="docker run --rm weshigbee/manifest-tool"
+
 # ROS related
 alias cm=$'eval \'cd "$ROS_WORKSPACE"; catkin_make\''
 alias cb=$'eval \'cd "$ROS_WORKSPACE"; catkin build --cmake-args -DPYTHON_VERSION=3.6\''
@@ -31,6 +34,11 @@ alias sl='rosservice list'
 alias sc='rosservice call'
 alias mi='rosmsg info'
 alias si='rossrv info'
+alias ros_dep_install='rosdep install --from-paths src --ignore-src -r -y'
+
+# jupyter/anaconda
+alias jpnb='docker run -i -t -p 8888:8888 continuumio/anaconda3 /bin/bash -c "/opt/conda/bin/conda install jupyter -y --quiet && mkdir /opt/notebooks && /opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser"'
+
 
 # git related functions
 # from https://www.phillip-kruger.com/post/some_bash_functions_for_git/
@@ -51,12 +59,12 @@ function clone {
         echo "Option 2: Provide the full URL";
         echo "$ clone https://github.com/smallrye/smallrye-rest-client.git";
         echo "This will do: git clone https://github.com/smallrye/smallrye-rest-client.git";
-    else    
+    else
         if [[ $1 == https://* ]] || [[ $1 == git://* ]] || [[ $1 == ssh://* ]] ; then
             URL=$1;
         else
             URL='https://github.com/DavidGogh/'$1'.git';
-        fi    
+        fi
 
         echo git clone "$URL";
         git clone "$URL";
@@ -93,8 +101,10 @@ function commit {
         echo "This will commit changes to a local git repo, eg:";
         echo "$ commit 'some changes made'";
         echo "This will do: git commit -s -m 'some changes made'";
-    else    
+    else
         echo git commit -s -a -m "$1"
         git commit -s -a -m "$1";
     fi
 }
+
+alias portainer="docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer"
